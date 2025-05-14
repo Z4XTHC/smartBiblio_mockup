@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{layout/layout}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Gestión Generos</title>
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Datatable CSS -->
+  <link rel="stylesheet" href=" https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
+
+  <!-- Script CSS -->
+  <link href="/styles.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4">
+      <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="/">
+          <img src="/img/favicon.png" alt="Logotipo" width="30" height="30" class="d-inline-block align-text-top">
+          <span class="ms-2">SmartBiblio</span>
+        </a>
+
+        <!-- Botón móvil -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Contenido del navbar -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/libros"><i class="fas fa-book"></i> Libros</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/socios"><i class="fas fa-users"></i> Socios</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/reservas"><i class="fas fa-calendar-alt"></i> Reservas</a>
+            </li>
+          </ul>
+
+          <!-- Buscador -->
+          <div class="d-flex align-items-center me-3 search-container">
+            <input type="text" class="form-control search-input me-2" id="searchInput" placeholder="Buscar...">
+            <button class="btn btn-outline-light" id="searchButton">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+
+          <!-- Login / Perfil -->
+          <!-- Por ahora sin Spring Security -->
+          <div>
+            <a href="/login" class="btn btn-primary ms-2">
+              <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+            </a>
+          </div>
+
+          <!-- Dropdown de perfil (muestra fija por ahora) -->
+          <div class="ms-2">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user"></i> Mi Perfil
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                <li><a class="dropdown-item" href="/perfil"><i class="fas fa-user-circle"></i> Ver
+                    Perfil</a></li>
+                <li><a class="dropdown-item" href="/configuracion"><i class="fas fa-cog"></i>
+                    Configuración</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Cerrar
+                    Sesión</a></li>
+                <!-- Para administradores -->
+                <li><a class="dropdown-item" href="/admin/panel"><i class="fas fa-tools"></i> Panel
+                    Admin</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div layout:fragment="contenido" class="contenido p-4">
+
+    <!-- Breadcrumb y opción de volver a la página anterior -->
+    <div class="container mb-4">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/admin/panel">Panel de Administrador</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Gestión de Generos</li>
+        </ol>
+      </nav>
+      <a href="javascript:history.back()" class="btn btn-outline-secondary">
+        <i class="fa-solid fa-arrow-left"></i> Volver
+      </a>
+    </div>
+
+    <!-- Contenido principal -->
+    <main class="container rounded rounded-4 shadow shadow-4 p-4">
+      <!-- Botón para generar un nuevo genero -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Listado de Libros</h1>
+        <a href="/admin/generos/nuevo" class="btn btn-primary shadow-sm">
+          <i class="fa-solid fa-book"></i> Registrar Genero
+        </a>
+      </div>
+
+      <!-- Formulario para filtrar usuarios por rol -->
+      <div class="d-flex align-items-center mb-4">
+        <label for="estadoSelect" class="form-label me-2 mb-0">Filtrar por estado de libro:</label>
+        <select id="estadoSelect" name="estado" class="form-select form-select-sm" style="width: auto;">
+          <option value="" selected class="fw-bold">Seleccione un estado</option>
+          <option value="todos">Todos</option>
+          <option value="true">Disponibles</option>
+          <option value="false">En Prestamos</option>
+        </select>
+      </div>
+
+      <table id="generosTable" class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Ficción</td>
+            <td>
+              <button onclick="editarGenero(1)"
+                class="btn btn-outline-warning float-end shadow rounded border border-1 border-warning"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar género">
+                <i class="fa-solid fa-user-pen"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Ciencia Ficción</td>
+            <td>
+              <button onclick="editarGenero(2)"
+                class="btn btn-outline-warning float-end shadow rounded border border-1 border-warning"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar género">
+                <i class="fa-solid fa-user-pen"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Misterio</td>
+            <td>
+              <button onclick="editarGenero(3)"
+                class="btn btn-outline-warning float-end shadow rounded border border-1 border-warning"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar género">
+                <i class="fa-solid fa-user-pen"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Romance</td>
+            <td>
+              <button onclick="editarGenero(4)"
+                class="btn btn-outline-warning float-end shadow rounded border border-1 border-warning"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar género">
+                <i class="fa-solid fa-user-pen"></i>
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Terror</td>
+            <td>
+              <button onclick="editarGenero(5)"
+                class="btn btn-outline-warning float-end shadow rounded border border-1 border-warning"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar género">
+                <i class="fa-solid fa-user-pen"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+    </main>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="text-center bg-dark text-light p-3">
+      Todos los Derechos Reservado © 2025 Copyright
+      <a class="text-warning fw-bold text-decoration-none" href="https://www.instagram.com/mango.storeok/">MangoSoft</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+  <!-- DATATABLE JS -->
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+  <!-- CSS de DataTables Responsive -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+
+  <!-- SWEET ALERT -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.0/dist/sweetalert2.all.min.js"></script>
+
+  <!-- JQUERY UI JS -->
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+    integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+
+  <!-- JQUERY MASK -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+  <!-- Scripts JS -->
+  <script src="/js/scripts.js"></script>
+  <script src="/js/datatables.js"></script>
+
+  <script>
+    const searchBtn = document.getElementById('searchButton');
+    const searchInput = document.getElementById('searchInput');
+
+    searchBtn.addEventListener('click', () => {
+      const isActive = searchInput.classList.toggle('active');
+
+      if (isActive) {
+        setTimeout(() => searchInput.focus(), 300);
+      } else {
+        searchInput.blur();
+      }
+    });
+  </script>
+  <script>
+    function editarGenero(id) {
+      alert("Simulando edición del género con ID: " + id);
+      // Aquí iría la lógica real para redirigir o mostrar un formulario de edición de género
+    }
+  </script>
+</body>
+
+</html>

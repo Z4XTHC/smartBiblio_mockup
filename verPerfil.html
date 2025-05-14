@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+
+    <link rel="icon" type="image/png" href="/img/favicon.png" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Datatable CSS -->
+    <link rel="stylesheet" href=" https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
+
+    <!-- Script CSS -->
+    <link href="/styles.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .profile-card {
+            background-color: #fff;
+            border-radius: 0.75rem;
+            /* Bordes redondeados */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            /* Sombra suave */
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1.5rem;
+        }
+
+        .profile-image {
+            width: 100px;
+            /* Tamaño fijo para la imagen */
+            height: 100px;
+            border-radius: 50%;
+            /* Hace que la imagen sea un círculo */
+            object-fit: cover;
+            /* Mantiene la proporción de la imagen y la recorta para ajustarla al círculo */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            /* Sombra suave */
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            /* Tamaño de fuente más grande */
+            font-weight: 600;
+            /* Texto en negrita */
+            color: #1f2937;
+            /* Color de texto más oscuro */
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-status {
+            font-size: 1rem;
+            color: #4b5563;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-membership {
+            font-size: 1rem;
+            color: #4b5563;
+        }
+
+        .data-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .data-title {
+            font-size: 1.25rem;
+            /* Tamaño de fuente más grande */
+            font-weight: 600;
+            /* Texto en negrita */
+            color: #1f2937;
+            /* Color de texto más oscuro */
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            /* Línea separadora */
+            padding-bottom: 0.5rem;
+        }
+
+        .data-item {
+            font-size: 1rem;
+            color: #4b5563;
+            margin-bottom: 0.75rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            /* Espacio entre los botones */
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand" href="/">
+                    <img src="/img/favicon.png" alt="Logotipo" width="30" height="30"
+                        class="d-inline-block align-text-top">
+                    <span class="ms-2">SmartBiblio</span>
+                </a>
+
+                <!-- Botón móvil -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Contenido del navbar -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/libros"><i class="fas fa-book"></i> Libros</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/socios"><i class="fas fa-users"></i> Socios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/reservas"><i class="fas fa-calendar-alt"></i> Reservas</a>
+                        </li>
+                    </ul>
+
+                    <!-- Buscador -->
+                    <div class="d-flex align-items-center me-3 search-container">
+                        <input type="text" class="form-control search-input me-2" id="searchInput"
+                            placeholder="Buscar...">
+                        <button class="btn btn-outline-light" id="searchButton">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+
+                    <!-- Login / Perfil -->
+                    <!-- Por ahora sin Spring Security -->
+                    <div>
+                        <a href="/login" class="btn btn-primary ms-2">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        </a>
+                    </div>
+
+                    <!-- Dropdown de perfil (muestra fija por ahora) -->
+                    <div class="ms-2">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user"></i> Mi Perfil
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                                <li><a class="dropdown-item" href="/perfil"><i class="fas fa-user-circle"></i> Ver
+                                        Perfil</a></li>
+                                <li><a class="dropdown-item" href="/configuracion"><i class="fas fa-cog"></i>
+                                        Configuración</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Cerrar
+                                        Sesión</a></li>
+                                <!-- Para administradores -->
+                                <li><a class="dropdown-item" href="/admin/panel"><i class="fas fa-tools"></i> Panel
+                                        Admin</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MODIFICAR-->
+    <div class="container mx-auto py-10">
+        <div class="profile-card">
+            <div class="profile-header">
+                <img src="https://static.vecteezy.com/system/resources/previews/019/879/186/non_2x/user-icon-on-transparent-background-free-png.png"
+                    alt="Foto de Perfil" class="profile-image">
+                <div class="profile-info">
+                    <h1 class="profile-name">Juan Pérez</h1>
+                    <p class="profile-status">Estado del Socio: <span class="text-success fw-bold">Activo</span></p>
+                    <p class="profile-membership">Estado de la Cuota: <span class="text-success fw-bold">Al día</span>
+                    </p>
+                </div>
+            </div>
+            <div class="data-section">
+                <h2 class="data-title">Datos del Usuario</h2>
+                <p class="data-item"><strong>Nombre:</strong> Juan Pérez</p>
+                <p class="data-item"><strong>Email:</strong> juan.perez@example.com</p>
+                <p class="data-item"><strong>Teléfono:</strong> +54 9 11 1234-5678</p>
+                <p class="data-item"><strong>Dirección:</strong> Calle Falsa 123</p>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-primary">
+                    <i class="fas fa-calendar-check mr-2"></i> Ver Mis Reservas
+                </button>
+                <button class="btn btn-outline-secondary">
+                    <i class="fas fa-edit mr-2"></i> Modificar Datos
+                </button>
+                <button class="btn btn-outline-secondary">
+                    <i class="fas fa-users mr-2"></i> Consultar Planes de Socios
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="text-center bg-dark text-light p-3">
+            Todos los Derechos Reservado © 2025 Copyright
+            <a class="text-warning fw-bold text-decoration-none"
+                href="https://www.instagram.com/mango.storeok/">MangoSoft</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+
+    <!-- DATATABLE JS -->
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <!-- CSS de DataTables Responsive -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+
+    <!-- SWEET ALERT -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.0/dist/sweetalert2.all.min.js"></script>
+
+    <!-- JQUERY UI JS -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+        integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+
+    <!-- JQUERY MASK -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+    <!-- Scripts JS -->
+    <script src="/js/scripts.js"></script>
+    <script src="/js/datatables.js"></script>
+
+    <script>
+        const searchBtn = document.getElementById('searchButton');
+        const searchInput = document.getElementById('searchInput');
+
+        searchBtn.addEventListener('click', () => {
+            const isActive = searchInput.classList.toggle('active');
+
+            if (isActive) {
+                setTimeout(() => searchInput.focus(), 300);
+            } else {
+                searchInput.blur();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
