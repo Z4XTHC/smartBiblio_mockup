@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{layout/layout}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Ver Mis Reservas</title>
 
     <link rel="icon" type="image/png" href="/img/icon.png" />
 
@@ -98,8 +100,7 @@
                                 <li><a class="dropdown-item" href="./logout"><i class="fas fa-sign-out-alt"></i> Cerrar
                                         Sesión</a></li>
                                 <!-- Para administradores -->
-                                <li><a class="dropdown-item" href="./admin/panel.html"><i class="fas fa-tools"></i>
-                                        Panel
+                                <li><a class="dropdown-item" href="./panel"><i class="fas fa-tools"></i> Panel
                                         Admin</a>
                                 </li>
                             </ul>
@@ -110,13 +111,124 @@
         </nav>
     </header>
 
-    <!-- MODIFICAR-->
-    <main class="container rounded rounded-4 shadow shadow-4 p-4 mb-4">
-        <h1>Bienvenido a SmartBiblio</h1>
-        <p>📚 SmartBiblio 🚀 Sistema de gestión bibliotecaria desarrollado con Spring Boot. 📖 Administra libros,
-            👩‍🎓👨‍🏫 usuarios y socios, y 📅 gestiona reservas. ✨ Diseñado para optimizar bibliotecas con una solución
-            eficiente y adaptable. 💻</p>
-    </main>
+    <div layout:fragment="contenido" class="contenido p-4">
+
+        <!-- Breadcrumb y opción de volver a la página anterior -->
+        <div class="container mb-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="./verPerfil.html">Mi Perfil</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Mis Reservas</li>
+                </ol>
+            </nav>
+            <a href="javascript:history.back()" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-arrow-left"></i> Volver
+            </a>
+        </div>
+
+        <main class="container rounded rounded-4 shadow shadow-4 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1>Listado de Reservas</h1>
+                <a href="./socios/en-espera" class="btn btn-warning shadow-sm">
+                    <i class="fa-solid fa-hourglass-half"></i> En espera
+                </a>
+            </div>
+
+            <!-- Formulario para filtrar los Reservas por el estado -->
+            <div class="d-flex align-items-center mb-4">
+                <label for="estadoSelect" class="form-label me-2 mb-0">Filtrar por estado de reservas:</label>
+                <select id="estadoSelect" name="estado" class="form-select form-select-sm" style="width: auto;">
+                    <option value="" selected class="fw-bold">Seleccione un estado</option>
+                    <option value="todos">Todos</option>
+                    <option value="true">Activos</option>
+                    <option value="false">Inactivos</option>
+                </select>
+            </div>
+
+            <table id="reservaTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID Reserva</th>
+                        <th>Socio</th>
+                        <th>Estado de Reserva</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>R001</td>
+                        <td>Martínez, Laura (S001)</td>
+                        <td class="fw-bold text-warning">Pendiente</td>
+                        <td>
+                            <button onclick="verDetalleReserva('R001')"
+                                class="btn btn-outline-secondary float-end shadow rounded border border-1 border-secondary ms-2"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver detalle de la reserva">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            <button onclick="cancelarReserva('R001')"
+                                class="btn btn-outline-danger float-end shadow rounded border border-1 border-danger"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cancelar reserva">
+                                <i class="fa-solid fa-ban"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>R002</td>
+                        <td>Fernández, Pedro (S002)</td>
+                        <td class="fw-bold text-success">Confirmada</td>
+                        <td>
+                            <button onclick="verDetalleReserva('R002')"
+                                class="btn btn-outline-secondary float-end shadow rounded border border-1 border-secondary ms-2"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver detalle de la reserva">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            <button onclick="cancelarReserva('R002')"
+                                class="btn btn-outline-danger float-end shadow rounded border border-1 border-danger"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cancelar reserva">
+                                <i class="fa-solid fa-ban"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>R003</td>
+                        <td>Suárez, Sofía (S003)</td>
+                        <td class="fw-bold text-danger">Cancelada</td>
+                        <td>
+                            <button onclick="verDetalleReserva('R003')"
+                                class="btn btn-outline-secondary float-end shadow rounded border border-1 border-secondary ms-2"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver detalle de la reserva">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            <button onclick="cancelarReserva('R003')"
+                                class="btn btn-outline-danger float-end shadow rounded border border-1 border-danger"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cancelar reserva">
+                                <i class="fa-solid fa-ban"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>R004</td>
+                        <td>Romero, Javier (S004)</td>
+                        <td class="fw-bold text-warning">Pendiente</td>
+                        <td>
+                            <button onclick="verDetalleReserva('R004')"
+                                class="btn btn-outline-secondary float-end shadow rounded border border-1 border-secondary ms-2"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ver detalle de la reserva">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            <button onclick="cancelarReserva('R004')"
+                                class="btn btn-outline-danger float-end shadow rounded border border-1 border-danger"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cancelar reserva">
+                                <i class="fa-solid fa-ban"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </main>
+    </div>
 
     <!-- FOOTER -->
     <footer>
@@ -304,7 +416,17 @@
             }
         });
     </script>
+    <script>
+        function verDetalleReserva(idReserva) {
+            alert("Simulando ver detalle de la reserva con ID: " + idReserva);
+            // Aquí iría la lógica para mostrar los detalles de la reserva
+        }
 
+        function cancelarReserva(idReserva) {
+            alert("Simulando cancelación de la reserva con ID: " + idReserva);
+            // Aquí iría la lógica para cancelar la reserva
+        }
+    </script>
     <!-- MODAL REGISTRO -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -426,7 +548,6 @@
             }
         });
     </script>
-
 </body>
 
 </html>

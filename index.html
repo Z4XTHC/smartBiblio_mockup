@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
 
-    <link rel="icon" type="image/png" href="./img/icon.png" />
+    <link rel="icon" type="image/png" href="/img/icon.png" />
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -21,7 +21,408 @@
     <link rel="stylesheet" href=" https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
 
     <!-- Script CSS -->
-    <link href="./styles.css" rel="stylesheet">
+    <link href="/styles.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Estilos para la portada */
+        .portada-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            /* Cambia la dirección del flex a columna */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .portada-imagen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            filter: brightness(80%) sepia(20%);
+        }
+
+        .portada-color-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(199, 0, 0, 0.3);
+            mix-blend-mode: multiply;
+        }
+
+        .portada-logo {
+            z-index: 2;
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 1rem;
+            /* Añade margen inferior para separar el logo del título */
+            border-radius: 50%;
+            /* Hace el logo redondo */
+            overflow: hidden;
+            /* Asegura que el redondeo se aplique correctamente */
+        }
+
+        .portada-contenido {
+            position: relative;
+            /* Cambia de absolute a relative */
+            text-align: center;
+            color: white;
+            z-index: 1;
+            display: flex;
+            /* Añade flexbox para controlar el orden de los elementos */
+            flex-direction: column;
+            /* Asegura que los elementos se apilen verticalmente */
+            align-items: center;
+            /* Centra los elementos horizontalmente */
+        }
+
+        .portada-titulo {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .portada-subtitulo {
+            font-size: 1.25rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .institucion-info {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 2rem;
+        }
+
+        .novedades-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            /* Importante: oculta el contenido que se desborda */
+        }
+
+        .novedades-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .novedades-titulo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-left: 0.75rem;
+        }
+
+        .novedades-lista {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 400px;
+            /* Establece una altura máxima para el contenedor de las publicaciones */
+            overflow-y: auto;
+            /* Añade scrollbar vertical cuando el contenido excede la altura */
+            scroll-behavior: smooth;
+            /* Suaviza el desplazamiento del scroll */
+        }
+
+        .novedades-lista li {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .novedades-lista li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .novedad-contenido {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .novedad-fecha {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .novedad-titulo {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1f2937;
+            margin-bottom: 0.75rem;
+        }
+
+        .novedad-extracto {
+            font-size: 0.9rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+
+        .novedad-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #3b82f6;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .novedad-link:hover {
+            color: #2563eb;
+        }
+
+        /* Estilos para la sección de Contacto */
+        .info-contacto-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-wrap: wrap;
+            /* Permite que los elementos se envuelvan en pantallas pequeñas */
+            gap: 2rem;
+            /* Espacio entre las columnas */
+            justify-content: space-between;
+            /* Distribuye el espacio entre las columnas */
+            margin-top: 2rem;
+            /* Separación del apartado anterior */
+        }
+
+        .contacto-left {
+            flex: 1;
+            /* Ocupa el espacio disponible */
+            min-width: 300px;
+            /* Ancho mínimo para que no se vea muy comprimido */
+        }
+
+        .contacto-right {
+            flex: 1;
+            /* Ocupa el espacio disponible */
+            min-width: 300px;
+            /* Ancho mínimo */
+        }
+
+        .contacto-left h2,
+        .contacto-right h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+        }
+
+        .contacto-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: #4b5563;
+        }
+
+        .contacto-item i {
+            margin-right: 0.75rem;
+            color: #3b82f6;
+            /* Color para los íconos */
+            min-width: 20px;
+            /* Asegura que los íconos tengan un ancho consistente */
+        }
+
+        .contacto-item a {
+            color: #3b82f6;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .contacto-item a:hover {
+            color: #2563eb;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 400px;
+            /* Altura fija para el mapa */
+            border-radius: 0.5rem;
+            overflow: hidden;
+            /* Asegura que el iframe se ajuste al radio */
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            /* Remueve el borde predeterminado del iframe */
+        }
+
+
+        .nuevos-libros-container {
+            overflow: hidden;
+            position: relative;
+            padding: 15px 0;
+        }
+
+        .nuevos-libros-list {
+            display: flex;
+            animation: scrollNuevosLibrosLoop 5s linear infinite alternate;
+            width: fit-content;
+            transition: transform 0.5s ease-out;
+        }
+
+        .nuevo-libro-card {
+            flex: 0 0 auto;
+            width: 180px;
+            margin-right: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        .nuevo-libro-card img {
+            width: 100%;
+            height: 270px;
+            object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .nuevo-libro-info {
+            padding: 10px;
+        }
+
+        .nuevo-libro-titulo {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .nuevo-libro-descripcion {
+            font-size: 0.8rem;
+            color: #777;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        @keyframes scrollNuevosLibrosLoop {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-180px - 15px));
+            }
+        }
+
+        .nuevos-libros-list:hover {
+            animation-play-state: paused;
+        }
+
+        @media (max-width: 768px) {
+            .portada-titulo {
+                font-size: 2rem;
+            }
+
+            .portada-subtitulo {
+                font-size: 1rem;
+            }
+
+            .novedades-lista {
+                max-height: none;
+                overflow-y: visible;
+            }
+        }
+
+
+        /* Estilos para las publicaciones de redes sociales (ejemplo) */
+        .publicacion-red-social {
+            background-color: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .publicacion-red-social-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .publicacion-red-social-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 0.75rem;
+            object-fit: cover;
+        }
+
+        .publicacion-red-social-nombre {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .publicacion-red-social-fecha {
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .publicacion-red-social-contenido {
+            font-size: 0.875rem;
+            color: #374151;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .publicacion-red-social-imagen {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .publicacion-red-social-link {
+            display: inline-block;
+            color: #3b82f6;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .publicacion-red-social-link:hover {
+            color: #2563eb;
+        }
+    </style>
+
+
 </head>
 
 <body>
@@ -29,8 +430,8 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4">
             <div class="container-fluid">
                 <!-- Logo -->
-                <a class="navbar-brand" href="./">
-                    <img src="./img/icon.png" alt="Logotipo" width="30" height="30"
+                <a class="navbar-brand" href="/">
+                    <img src="/img/icon.png" alt="Logotipo" width="30" height="30"
                         class="d-inline-block align-text-top">
                     <span class="ms-2">SmartBiblio</span>
                 </a>
@@ -64,11 +465,19 @@
                         </a>
                     </div>
 
+                    <!-- Carrito -->
+                    <div class="me-3">
+                        <a href="/verCarrito.html" class="btn btn-outline-light">
+                            <i class="fas fa-shopping-cart"></i> Carrito
+                        </a>
+                    </div>
+
                     <!-- Login / Perfil -->
                     <div>
-                        <a href="./login" class="btn btn-primary ms-2">
+                        <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">
                             <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
-                        </a>
+                        </button>
                     </div>
 
                     <!-- Dropdown de perfil (muestra fija por ahora) -->
@@ -104,108 +513,263 @@
     </header>
 
     <!-- MODIFICAR-->
-    <main class="container py-5">
-        <div class="text-center mb-5">
-            <img src="./img/favicon.png" alt="Portada Minimalista de Libro" class="img-fluid mb-3"
-                style="max-height: 100px; opacity: 0.8;">
-            <h1 class="display-4 fw-light">SmartBiblio</h1>
-            <p class="lead text-muted">Tu conexión con el conocimiento.</p>
+    <main class="container mx-auto py-10">
+        <div class="portada-container">
+            <img src="/img/portada.jpg" alt="Portada de la Biblioteca" class="portada-imagen">
+            <div class="portada-color-overlay"></div>
+            <img src="/img/icon.png" alt="Logo de SmartBiblio" class="portada-logo">
+            <div class="portada-contenido">
+                <h1 class="portada-titulo">Biblioteca Popular Mariano Moreno N° 2550</h1>
+                <p class="portada-subtitulo">"En Algún lugar de un libro hay una frase esperándonos para darle un
+                    sentido a la existencia".
+                </p>
+                <strong>- Miguel de Cervantez</strong>
+            </div>
         </div>
 
-        <div class="bg-light rounded-3 shadow-sm p-4 mb-4">
-            <h2 class="h5 mb-3"><i class="fas fa-info-circle text-secondary me-2"></i> Información de la Institución
+        <div class="institucion-info">
+            <h2 class="h5 mb-3"><i class="fas fa-info-circle text-secondary me-2"></i> Historía de la Institución
             </h2>
             <p class="text-muted">
-                [Breve y concisa descripción de la historia, misión y valores de la biblioteca.
-                Por ejemplo: "Fundada en [año], SmartBiblio promueve la lectura y el acceso al conocimiento en la
-                comunidad."]
-                <a href="#" class="link-secondary small">Leer más...</a>
+                En 1990 un convenio con la empresa Tableos Guillermina S.A. (Ferrum) cedió parte del ex-hotel forestal
+                para ser un Centro Cultural y Sala de Lecturas. Allí surgen eventos como: el planetario móvil,
+                enseñanzas de danzas clásicas, la primera sala de computación, academias de inglés, Taekwondo, cursos de
+                pintura, diversas exhibiciones, etc.
             </p>
         </div>
 
-        <div class="row gx-4">
-            <div class="col-md-8 mb-4">
-                <div class="bg-light rounded-3 shadow-sm p-4">
-                    <h2 class="h5 mb-3"><i class="fas fa-newspaper text-primary me-2"></i> Últimas Novedades</h2>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <i class="fas fa-bullhorn text-primary me-2"></i>
-                            <span class="fw-semibold">Nuevo horario:</span> Lunes a Viernes, 9:00 - 18:00.
-                            <a href="#" class="link-secondary small ms-2">Detalles</a>
-                        </li>
-                        <li class="mb-2">
-                            <i class="fas fa-book-open text-success me-2"></i>
-                            <span class="fw-semibold">Nuevos títulos:</span> Explora nuestra reciente colección de
-                            ficción.
-                            <a href="#" class="link-secondary small ms-2">Ver lista</a>
-                        </li>
-                        <li class="mb-2">
-                            <i class="fas fa-calendar-alt text-warning me-2"></i>
-                            <span class="fw-semibold">Evento:</span> Taller de lectura el 15 de mayo. ¡Inscríbete!
-                            <a href="#" class="link-secondary small ms-2">Más información</a>
-                        </li>
-                    </ul>
-                    <a href="#" class="btn btn-primary btn-sm mt-2">Ver todas</a>
-                </div>
+        <div class="novedades-container">
+            <div class="novedades-header">
+                <i class="fas fa-newspaper text-primary me-2"></i>
+                <h2 class="novedades-titulo">Últimas Novedades</h2>
             </div>
+            <ul class="novedades-lista">
+                <li class="publicacion-red-social">
+                    <div class="publicacion-red-social-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
+                            alt="Avatar de Facebook" class="publicacion-red-social-avatar"
+                            style="width: 50px; height: 50px;">
+                        <div>
+                            <span class="publicacion-red-social-nombre">Biblioteca SmartBiblio</span>
+                            <p class="publicacion-red-social-fecha">10 de mayo de 2025</p>
+                        </div>
+                    </div>
+                    <div class="publicacion-red-social-contenido">
+                        ¡Tenemos nuevo horario de atención! Ahora abrimos de lunes a viernes de 9:00 a 18:00. ¡Los
+                        esperamos!
+                    </div>
+                    <a href="#" class="btn btn-primary btn-sm mt-2">
+                        Ver en Facebook
+                    </a>
+                </li>
+                <li class="publicacion-red-social">
+                    <div class="publicacion-red-social-header">
+                        <img src="https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-instagram-social-platform-icon-png-image_6315976.png"
+                            alt="Avatar de Instagram" class="publicacion-red-social-avatar"
+                            style="width: 50px; height: 50px;">
+                        <div>
+                            <span class="publicacion-red-social-nombre">SmartBiblio</span>
+                            <p class="publicacion-red-social-fecha">8 de mayo de 2025</p>
+                        </div>
+                    </div>
+                    <div class="publicacion-red-social-contenido">
+                        <p>¡No te pierdas nuestro taller de lectura el 15 de mayo! Inscríbete en el enlace de nuestra
+                            bio.</p>
+                    </div>
 
-            <div class="col-md-4 mb-4">
-                <div class="bg-light rounded-3 shadow-sm p-4">
-                    <h2 class="h5 mb-3"><i class="fas fa-map-signs text-info me-2"></i> Información</h2>
-                    <p class="mb-1"><i class="far fa-clock text-info me-2"></i> <span
-                            class="fw-semibold">Horario:</span> Lun-Vie 9-18</p>
-                    <p class="mb-1"><i class="fas fa-map-marker-alt text-danger me-2"></i> <span
-                            class="fw-semibold">Ubicación:</span> [Dirección]</p>
-                    <p class="mb-1"><i class="far fa-envelope text-success me-2"></i> <span
-                            class="fw-semibold">Email:</span> <a href="mailto:info@smartbiblio.com"
-                            class="link-secondary small">info@smartbiblio.com</a></p>
-                    <p class="mb-0"><i class="fas fa-phone text-warning me-2"></i> <span
-                            class="fw-semibold">Teléfono:</span> +54 [Número]</p>
-                </div>
-            </div>
+                    <a href="#" class="btn btn-primary btn-sm mt-2">
+                        Ver en Instagram
+                    </a>
+                </li>
+            </ul>
         </div>
 
         <div class="mb-4">
-            <h2 class="h5 mb-3"><i class="fas fa-book-collection text-secondary me-2"></i> Nuevos Libros</h2>
-            <div class="row row-cols-1 row-cols-md-3 g-3">
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm rounded-3">
+            <h4 class="mb-3 fw-bold fs-4"><i class="fas fa-book-collection text-secondary me-2 fw-bold"></i> Nuevos
+                Libros
+            </h4>
+            <div class="nuevos-libros-container">
+                <div class="nuevos-libros-list">
+                    <div class="nuevo-libro-card">
                         <img src="https://www.penguinlibros.com/ar/1596120/el-nombre-del-viento-cronica-del-asesino-de-reyes-1.jpg"
-                            class="card-img-top rounded-top-3" alt="Libro 1">
-                        <div class="card-body">
-                            <h6 class="card-title fw-semibold">El Nombre del Viento</h6>
-                            <p class="card-text small text-muted">Una novela de fantasía épica.</p>
-                            <a href="#" class="btn btn-primary">Ver</a>
+                            alt="El Nombre del Viento">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">El Nombre del Viento</h6>
+                            <p class="nuevo-libro-descripcion">Fantasía épica</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm rounded-3">
+                    <div class="nuevo-libro-card">
                         <img src="https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"
-                            class="card-img-top rounded-top-3" alt="Libro 2">
-                        <div class="card-body">
-                            <h6 class="card-title fw-semibold">Cien años de soledad</h6>
-                            <p class="card-text small text-muted">La obra maestra de Gabriel García Márquez.</p>
-                            <a href="#" class="btn btn-primary">Ver</a>
+                            alt="Cien años de soledad">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">Cien años de soledad</h6>
+                            <p class="nuevo-libro-descripcion">García Márquez</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 border-0 shadow-sm rounded-3">
-                        <img src="https://www.penguinlibros.com/ar/3494331-large_default/1984.webp"
-                            class="card-img-top rounded-top-3" alt="Libro 3">
-                        <div class="card-body">
-                            <h6 class="card-title fw-semibold">1984</h6>
-                            <p class="card-text small text-muted">Una distopía clásica de George Orwell.</p>
-                            <a href="#" class="btn btn-primary">Ver</a>
+                    <div class="nuevo-libro-card">
+                        <img src="https://www.penguinlibros.com/ar/3494331-large_default/1984.webp" alt="1984">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">1984</h6>
+                            <p class="nuevo-libro-descripcion">George Orwell</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="/img/libros/hppiedrafilosofal.jpg" alt="Harry Potter">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">Harry Potter y la piedra filosofal</h6>
+                            <p class="nuevo-libro-descripcion">J.K. Rowling</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="/img/libros/orgulloyprejuicio.jpg" alt="Orgullo y prejuicio">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">Orgullo y prejuicio</h6>
+                            <p class="nuevo-libro-descripcion">Jane Austen</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="/img/libros/juegosdelhambre.jpg" alt="Los juegos del hambre">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">Los juegos del hambre</h6>
+                            <p class="nuevo-libro-descripcion">Suzanne Collins</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="/img/libros/bajolamismaestrella.jpg" alt="Bajo la misma estrella">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">Bajo la misma estrella</h6>
+                            <p class="nuevo-libro-descripcion">John Green</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="/img/libros/señoranilloscomunidad.jpg" alt="El señor de los anillos">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">El señor de los Anillos: La Comunidad del Anillo</h6>
+                            <p class="nuevo-libro-descripcion">J.R.R. Tolkien</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="https://www.penguinlibros.com/ar/1596120/el-nombre-del-viento-cronica-del-asesino-de-reyes-1.jpg"
+                            alt="El Nombre del Viento">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">El Nombre del Viento</h6>
+                            <p class="nuevo-libro-descripcion">Fantasía épica</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"
+                            alt="Cien años de soledad">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">Cien años de soledad</h6>
+                            <p class="nuevo-libro-descripcion">García Márquez</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="https://www.penguinlibros.com/ar/3494331-large_default/1984.webp" alt="1984">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">1984</h6>
+                            <p class="nuevo-libro-descripcion">George Orwell</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="/img/libros/hppiedrafilosofal.jpg" alt="Harry Potter">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">Harry Potter y la piedra filosofal</h6>
+                            <p class="nuevo-libro-descripcion">J.K. Rowling</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="/img/libros/orgulloyprejuicio.jpg" alt="Orgullo y prejuicio">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">Orgullo y prejuicio</h6>
+                            <p class="nuevo-libro-descripcion">Jane Austen</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="/img/libros/juegosdelhambre.jpg" alt="Los juegos del hambre">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">Los juegos del hambre</h6>
+                            <p class="nuevo-libro-descripcion">Suzanne Collins</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="/img/libros/bajolamismaestrella.jpg" alt="Bajo la misma estrella">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">Bajo la misma estrella</h6>
+                            <p class="nuevo-libro-descripcion">John Green</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
+                        </div>
+                    </div>
+                    <div class="nuevo-libro-card">
+                        <img src="/img/libros/señoranilloscomunidad.jpg" alt="El señor de los anillos">
+                        <div class="nuevo-libro-info">
+                            <h6 class="nuevo-libro-titulo">El señor de los Anillos: La Comunidad del Anillo</h6>
+                            <p class="nuevo-libro-descripcion">J.R.R. Tolkien</p>
+                            <a href="/verLibro.html" class="btn btn-primary btn-sm">Ver</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
+        <section class="info-contacto-container">
+            <div class="contacto-left">
+                <h2><i class="fas fa-address-book me-2"></i> Información de Contacto</h2>
+                <div class="contacto-item">
+                    <i class="fas fa-clock text-primary"></i>
+                    <span><strong>Horarios de Atención:</strong> Lunes a Viernes, 9:00 - 18:00 hs</span>
+                </div>
+                <div class="contacto-item">
+                    <i class="fas fa-map-marker-alt text-primary"></i>
+                    <span><strong>Dirección:</strong> Bahia Blanca 230, Vilal Guillermina, Santa Fe.</span>
+                </div>
+                <div class="contacto-item">
+                    <i class="fab fa-whatsapp text-primary"></i>
+                    <span><strong>WhatsApp:</strong> <a href="https://wa.me/5493482524097" target="_blank">+54 9
+                            348-2524097</a></span>
+                </div>
+                <div class="contacto-item">
+                    <i class="fab fa-facebook-f text-primary"></i>
+                    <span><strong>Facebook:</strong> <a href="https://www.facebook.com/profile.php?id=100010600963494"
+                            target="_blank">Mariano Moreno</a></span>
+                </div>
+                <div class="contacto-item">
+                    <i class="fab fa-instagram text-primary"></i>
+                    <span><strong>Instagram:</strong> <a href="https://www.instagram.com/mango.storeok"
+                            target="_blank">@MarianoMoreno</a></span>
+                </div>
+                <div class="contacto-item">
+                    <i class="fas fa-envelope text-primary"></i>
+                    <span><strong>Correo Electrónico:</strong> <a
+                            href="mailto:info@smartbiblio.com">info@smartbiblio.com</a></span>
+                </div>
+            </div>
+            <div class="contacto-right">
+                <h2><i class="fas fa-map-marked-alt me-2"></i> Nuestra Ubicación</h2>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3514.9716886670963!2d-59.453961924679334!3d-28.238538975882168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x944f6a8af249b04d%3A0x6d985126cb634fd9!2sBah%C3%ADa%20Blanca%2C%20Villa%20Guillermina%2C%20Santa%20Fe!5e0!3m2!1ses-419!2sar!4v1747771262017!5m2!1ses-419!2sar"
+                        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+
         <div class="text-center py-3">
-            <h2 class="h6 mb-3 text-muted"><i class="fas fa-share-alt text-secondary me-2"></i> Síguenos</h2>
+            <h2 class="h6 mb-3 text-muted"><i class="fas fa-share-alt text-dark fw-bold me-2"></i> Síguenos</h2>
             <a href="#" class="btn btn-lg btn-outline-primary rounded-pill me-2"><i class="fab fa-facebook-f"></i></a>
             <a href="#" class="btn btn-lg btn-outline-warning rounded-pill me-2"><i class="fab fa-twitter"></i></a>
             <a href="#" class="btn btn-lg btn-outline-danger rounded-pill me-2"><i class="fab fa-instagram"></i></a>
@@ -221,6 +785,143 @@
         </div>
     </footer>
 
+    <!-- MODALES: -->
+    <!-- MODAL LOGIN -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <img src="/img/favicon.png" alt="Logo Institución" height="300">
+                    </div>
+                    <form>
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><i class="fas fa-envelope me-2"></i> Correo
+                                Electrónico</label>
+                            <input type="email" class="form-control" id="email" placeholder="Tu correo electrónico">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label"><i class="fas fa-lock me-2"></i> Contraseña</label>
+                            <input type="password" class="form-control" id="password" placeholder="Tu contraseña">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberPassword">
+                            <label class="form-check-label" for="rememberPassword">Recordar Contraseña</label>
+                        </div>
+                        <div class="mb-3">
+                            <a href="#"><i class="fas fa-question-circle me-2"></i> Olvidé la contraseña</a>
+                        </div>
+
+                    </form>
+                    <button id="btn_iniciar_sesion" class="btn btn-primary w-100"><i class="fas fa-sign-in me-2"></i>
+                        Iniciar
+                        Sesión</button>
+                    <hr class="my-4">
+                    <p class="text-center">O iniciar con:</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary"><i class="fab fa-google me-2"></i> Google</button>
+                        <button class="btn btn-outline-info"><i class="fab fa-facebook-f me-2"></i> Facebook</button>
+                    </div>
+                    <div class="mt-3 text-center">
+                        ¿No tienes una cuenta? <a href="#" id="openRegisterModal">Regístrate</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL REGISTRO -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Registrarse</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registrationForm">
+                        <div class="mb-3">
+                            <label for="dni" class="form-label"><i class="fas fa-id-card me-2"></i> DNI</label>
+                            <input type="text" class="form-control" id="dni" placeholder="Tu número de DNI">
+                            <div class="invalid-feedback" id="dniError"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apellido" class="form-label"><i class="fas fa-user-alt me-2"></i>
+                                Apellido</label>
+                            <input type="text" class="form-control" id="apellido" placeholder="Tu apellido">
+                            <div class="invalid-feedback" id="apellidoError"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label"><i class="fas fa-user me-2"></i> Nombre</label>
+                            <input type="text" class="form-control" id="nombre" placeholder="Tu nombre">
+                            <div class="invalid-feedback" id="nombreError"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="institucion" class="form-label"><i class="fas fa-school me-2"></i> Nombre de la
+                                Institución Escolar</label>
+                            <input type="text" class="form-control" id="institucion"
+                                placeholder="Nombre de tu institución">
+                            <div class="invalid-feedback" id="institucionError"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="emailRegister" class="form-label"><i class="fas fa-envelope me-2"></i>
+                                E-Mail</label>
+                            <input type="email" class="form-control" id="emailRegister"
+                                placeholder="Tu correo electrónico">
+                            <div class="invalid-feedback" id="emailRegisterError"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordRegister" class="form-label"><i class="fas fa-lock me-2"></i>
+                                Contraseña</label>
+                            <input type="password" class="form-control" id="passwordRegister"
+                                placeholder="Tu contraseña">
+                            <div class="mt-2">
+                                <small class="text-danger" id="passwordLength"><i class="fas fa-times me-1"></i> Mínimo
+                                    8 caracteres</small><br>
+                                <small class="text-danger" id="passwordUppercase"><i class="fas fa-times me-1"></i> Una
+                                    letra mayúscula</small><br>
+                                <small class="text-danger" id="passwordLowercase"><i class="fas fa-times me-1"></i> Una
+                                    letra minúscula</small><br>
+                                <small class="text-danger" id="passwordNumber"><i class="fas fa-times me-1"></i> Un
+                                    número (0-9)</small><br>
+                                <small class="text-danger" id="passwordSymbol"><i class="fas fa-times me-1"></i> Un
+                                    símbolo (@ ! & $ # ?)</small><br>
+                                <small class="text-danger" id="passwordNotDni"><i class="fas fa-times me-1"></i> No
+                                    puede ser igual al DNI</small>
+                            </div>
+                            <div class="invalid-feedback" id="passwordRegisterError"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label"><i class="fas fa-lock me-2"></i> Confirmar
+                                Contraseña</label>
+                            <input type="password" class="form-control" id="confirmPassword"
+                                placeholder="Confirma tu contraseña">
+                            <div class="invalid-feedback" id="confirmPasswordError">Las contraseñas no coinciden.</div>
+                        </div>
+                    </form>
+                    <button id="btn_registrarse" class="btn btn-success w-100"><i class="fas fa-user-plus me-2"></i>
+                        Registrarse</button>
+                    <hr class="my-4">
+                    <p class="text-center">O Registrarse con:</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary"><i class="fab fa-google me-2"></i> Google</button>
+                        <button class="btn btn-outline-info"><i class="fab fa-facebook-f me-2"></i> Facebook</button>
+                    </div>
+                    <div class="mt-3 text-center">
+                        ¿Ya tienes una cuenta? <a href="#" id="openLoginModal">Inicia Sesión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIN MODALES-->
+
+    <!-- BOOTSTRAP JS  -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
@@ -246,10 +947,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
     <!-- Scripts JS -->
-    <script src="./js/scripts.js"></script>
-    <script src="./js/datatables.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="/js/datatables.js"></script>
 
-    <script>
+    <!-- <script>
         const searchBtn = document.getElementById('searchButton');
         const searchInput = document.getElementById('searchInput');
 
@@ -260,6 +961,134 @@
                 setTimeout(() => searchInput.focus(), 300);
             } else {
                 searchInput.blur();
+            }
+        });
+    </script> -->
+    <script>
+        var nuevosLibrosCarousel = new bootstrap.Carousel(document.getElementById('nuevosLibrosCarousel'), {
+            interval: 2000, // Cambia cada 5 segundos (ajusta según prefieras)
+            wrap: true // Permite que el carrusel vuelva al principio al llegar al final
+        });
+    </script>
+
+    <!-- MODAL REGISTRO -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginLink = document.getElementById('openRegisterModal');
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+
+            if (loginLink && loginModal && registerModal) {
+                loginLink.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const bsLoginModal = bootstrap.Modal.getInstance(loginModal);
+                    bsLoginModal.hide(); // Oculta el modal de inicio de sesión
+
+                    const bsRegisterModal = new bootstrap.Modal(registerModal);
+                    bsRegisterModal.show(); // Muestra el modal de registro
+                });
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const registrationForm = document.getElementById('registrationForm');
+            const dniInput = document.getElementById('dni');
+            const passwordInput = document.getElementById('passwordRegister');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const passwordLengthElement = document.getElementById('passwordLength');
+            const passwordUppercaseElement = document.getElementById('passwordUppercase');
+            const passwordLowercaseElement = document.getElementById('passwordLowercase');
+            const passwordNumberElement = document.getElementById('passwordNumber');
+            const passwordSymbolElement = document.getElementById('passwordSymbol');
+            const passwordNotDniElement = document.getElementById('passwordNotDni');
+            const confirmPasswordError = document.getElementById('confirmPasswordError');
+            const openLoginModalLink = document.getElementById('openLoginModal');
+            const registerModal = document.getElementById('registerModal');
+            const loginModal = document.getElementById('loginModal');
+
+            passwordInput.addEventListener('input', function () {
+                const password = passwordInput.value;
+                const dni = dniInput.value;
+
+                // Validar longitud
+                if (password.length >= 8) {
+                    passwordLengthElement.innerHTML = '<i class="fas fa-check me-1 text-success"></i> Mínimo 8 caracteres';
+                } else {
+                    passwordLengthElement.innerHTML = '<i class="fas fa-times me-1 text-danger"></i> Mínimo 8 caracteres';
+                }
+
+                // Validar mayúscula
+                if (/[A-Z]/.test(password)) {
+                    passwordUppercaseElement.innerHTML = '<i class="fas fa-check me-1 text-success"></i> Una letra mayúscula';
+                } else {
+                    passwordUppercaseElement.innerHTML = '<i class="fas fa-times me-1 text-danger"></i> Una letra mayúscula';
+                }
+
+                // Validar minúscula
+                if (/[a-z]/.test(password)) {
+                    passwordLowercaseElement.innerHTML = '<i class="fas fa-check me-1 text-success"></i> Una letra minúscula';
+                } else {
+                    passwordLowercaseElement.innerHTML = '<i class="fas fa-times me-1 text-danger"></i> Una letra minúscula';
+                }
+
+                // Validar número
+                if (/\d/.test(password)) {
+                    passwordNumberElement.innerHTML = '<i class="fas fa-check me-1 text-success"></i> Un número (0-9)';
+                } else {
+                    passwordNumberElement.innerHTML = '<i class="fas fa-times me-1 text-danger"></i> Un número (0-9)';
+                }
+
+                // Validar símbolo
+                if (/[@!&$#?]/.test(password)) {
+                    passwordSymbolElement.innerHTML = '<i class="fas fa-check me-1 text-success"></i> Un símbolo (@ ! & $ # ?)';
+                } else {
+                    passwordSymbolElement.innerHTML = '<i class="fas fa-times me-1 text-danger"></i> Un símbolo (@ ! & $ # ?)';
+                }
+
+                // Validar si es igual al DNI
+                if (password === dni && dni.length > 0) {
+                    passwordNotDniElement.innerHTML = '<i class="fas fa-times me-1 text-danger"></i> No puede ser igual al DNI';
+                } else {
+                    passwordNotDniElement.innerHTML = '<i class="fas fa-check me-1 text-success"></i> No puede ser igual al DNI';
+                }
+            });
+
+            confirmPasswordInput.addEventListener('input', function () {
+                if (passwordInput.value === confirmPasswordInput.value) {
+                    confirmPasswordError.style.display = 'none';
+                } else {
+                    confirmPasswordError.style.display = 'block';
+                }
+            });
+
+            registrationForm.addEventListener('submit', function (event) {
+                const password = passwordInput.value;
+                const dni = dniInput.value;
+                let isValid = true;
+
+                if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) || !/\d/.test(password) || !/[@!&$#?]/.test(password) || (password === dni && dni.length > 0)) {
+                    isValid = false;
+                }
+
+                if (password !== confirmPasswordInput.value) {
+                    isValid = false;
+                }
+
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+
+            // Intercambio entre modales
+            if (openLoginModalLink && registerModal && loginModal) {
+                openLoginModalLink.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const bsRegisterModal = bootstrap.Modal.getInstance(registerModal);
+                    bsRegisterModal.hide();
+
+                    const bsLoginModal = new bootstrap.Modal(loginModal);
+                    bsLoginModal.show();
+                });
             }
         });
     </script>

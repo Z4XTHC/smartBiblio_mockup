@@ -55,7 +55,6 @@
                         </li>
                     </ul>
 
-                    <!-- Buscador -->
                     <div class="d-flex align-items-center me-3 search-container">
                         <input type="text" class="form-control search-input me-2" id="searchInput"
                             placeholder="Buscar...">
@@ -71,8 +70,6 @@
                         </a>
                     </div>
 
-                    <!-- Login / Perfil -->
-                    <!-- Por ahora sin Spring Security -->
                     <div>
                         <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal"
                             data-bs-target="#loginModal">
@@ -80,7 +77,6 @@
                         </button>
                     </div>
 
-                    <!-- Dropdown de perfil (muestra fija por ahora) -->
                     <div class="ms-2">
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown"
@@ -97,7 +93,6 @@
                                 </li>
                                 <li><a class="dropdown-item" href="./logout"><i class="fas fa-sign-out-alt"></i> Cerrar
                                         Sesión</a></li>
-                                <!-- Para administradores -->
                                 <li><a class="dropdown-item" href="./admin/panel.html"><i class="fas fa-tools"></i>
                                         Panel
                                         Admin</a>
@@ -110,13 +105,109 @@
         </nav>
     </header>
 
-    <!-- MODIFICAR-->
-    <main class="container rounded rounded-4 shadow shadow-4 p-4 mb-4">
-        <h1>Bienvenido a SmartBiblio</h1>
-        <p>📚 SmartBiblio 🚀 Sistema de gestión bibliotecaria desarrollado con Spring Boot. 📖 Administra libros,
-            👩‍🎓👨‍🏫 usuarios y socios, y 📅 gestiona reservas. ✨ Diseñado para optimizar bibliotecas con una solución
-            eficiente y adaptable. 💻</p>
-    </main>
+    <!-- Contenido principal -->
+    <div class="container mx-auto mt-5 mb-5 py-10">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="position-relative">
+                    <img src="https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"
+                        alt="Portada del Libro" class="img-fluid shadow rounded">
+                    <button class="btn btn-outline-danger btn-lg position-absolute top-0 end-0 m-2"
+                        title="Agregar a Favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2 class="mb-3">Cien años de soledad</h2>
+                <p class="lead mb-4" style="font-size: 1.3rem; color: #000;">Considerada una obra maestra de la
+                    literatura hispanoamericana y universal...</p>
+                <div class="mb-2" style="font-size: 1.1rem;">
+                    <i class="fas fa-tag me-2 text-dark"></i> <span class="badge bg-light text-dark">Novela</span>
+                    <span class="badge bg-light text-dark ms-2">Realismo Mágico</span>
+                </div>
+                <div class="mb-2" style="font-size: 1.1rem;">
+                    <i class="fas fa-user me-2 text-dark"></i> <strong>Autor:</strong> <span class="text-dark">Gabriel
+                        García Márquez</span>
+                </div>
+                <div class="mb-2" style="font-size: 1.1rem;">
+                    <i class="fas fa-barcode me-2 text-dark"></i> <strong>Código:</strong> <span
+                        class="text-dark">GGM-100AS</span>
+                </div>
+                <div class="mb-4" style="font-size: 1.1rem;">
+                    <i class="fas fa-check-circle me-2 text-success"></i> <strong>Disponibilidad:</strong> <span
+                        class="text-success fw-bold">Disponible</span>
+                </div>
+                <button class="btn btn-primary btn-lg" style="font-size: 1.2rem;"><i
+                        class="fas fa-shopping-cart me-2"></i> Agregar al
+                    Carrito</button>
+            </div>
+        </div>
+
+        <div class="mt-5" id="comentarios-section">
+            <h4 class="mb-3" style="font-size: 1.3rem;"><i class="fas fa-comments me-2 text-secondary"></i> Comentarios
+            </h4>
+            <hr class="mb-3">
+
+            <div class="card mb-3 border-0" style="font-size: 1.15rem; color: #000;">
+                <div class="card-body p-3">
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <i class="fas fa-user-circle fa-2x text-secondary"></i>
+                        </div>
+                        <div>
+                            <h6 class="mt-0 mb-1 fw-bold text-secondary" style="font-size: 1.15rem;"><strong
+                                    class="text-dark">Usuario Anónimo</strong> <small class="text-muted ms-2"
+                                    style="font-size: 0.9rem;">14/05/2025</small>
+                            </h6>
+                            <p class="mb-0" style="line-height: 1.6; color: #000;">Un libro maravilloso, me encantó la
+                                historia y sus personajes inolvidables. La narrativa envolvente te transporta a Macondo
+                                de una manera única. ¡Muy recomendado!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3 border-0" style="font-size: 1.15rem; color: #000;">
+                <div class="card-body p-3">
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <i class="fas fa-user-circle fa-2x text-secondary"></i>
+                        </div>
+                        <div>
+                            <h6 class="mt-0 mb-1 fw-bold text-secondary" style="font-size: 1.15rem;"><strong
+                                    class="text-dark">Lector apasionado</strong> <small class="text-muted ms-2"
+                                    style="font-size: 0.9rem;">10/05/2025</small>
+                            </h6>
+                            <p class="mb-0" style="line-height: 1.6; color: #000;">Una obra cumbre del realismo
+                                mágico. La prosa de García Márquez es inigualable, creando un universo lleno de
+                                simbolismo y belleza. Los personajes son complejos y sus destinos te mantienen
+                                enganchado hasta el final.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4 border-0" style="font-size: 1.15rem;">
+                <div class="card-body p-3">
+                    <h5 class="card-title text-dark" style="font-size: 1.2rem;"><i
+                            class="fas fa-pen me-2 text-dark"></i> Dejar un comentario</h5>
+                    <form id="commentForm">
+                        <div class="mb-3">
+                            <label for="comentarioTexto" class="form-label visually-hidden">Comentario:</label>
+                            <textarea class="form-control" id="comentarioTexto" rows="4"
+                                placeholder="Escribe tu comentario aquí"
+                                style="font-size: 1.1rem; line-height: 1.6; color: #000;"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg" style="font-size: 1.2rem;"><i
+                                class="fas fa-paper-plane me-2"></i>
+                            Publicar comentario</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer>
@@ -289,6 +380,51 @@
     <!-- Scripts JS -->
     <script src="/js/scripts.js"></script>
     <script src="/js/datatables.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const commentForm = document.getElementById('commentForm');
+            const comentarioTextoInput = document.getElementById('comentarioTexto');
+            const comentariosContainer = document.getElementById('comentarios-section'); // Selector actualizado
+
+            commentForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Evita el envío real del formulario
+                const comentario = comentarioTextoInput.value.trim();
+
+                if (comentario !== '') {
+                    const nuevoComentario = document.createElement('div');
+                    nuevoComentario.classList.add('card', 'mb-3', 'border-0');
+                    nuevoComentario.setAttribute('style', 'font-size: 1.15rem; color: #000;'); // Aplica estilo al nuevo comentario
+                    nuevoComentario.innerHTML = `
+                        <div class="card-body p-3">
+                            <div class="d-flex align-items-start">
+                                <div class="me-3">
+                                    <i class="fas fa-user-circle fa-2x text-secondary"></i>
+                                </div>
+                                <div>
+                                    <h6 class="mt-0 mb-1 fw-bold text-secondary" style="font-size: 1.15rem;"><strong class="text-dark">Usuario Invitado</strong> <small class="text-muted ms-2" style="font-size: 0.9rem;">${obtenerFechaActual()}</small></h6>
+                                    <p class="mb-0" style="line-height: 1.6; color: #000;">${comentario}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                    // Inserta el nuevo comentario después del formulario
+                    comentariosContainer.insertBefore(nuevoComentario, commentForm.closest('.card'));
+
+                    comentarioTextoInput.value = ''; // Limpia el textarea
+                }
+            });
+
+            function obtenerFechaActual() {
+                const fecha = new Date();
+                const dia = String(fecha.getDate()).padStart(2, '0');
+                const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Meses van de 0 a 11
+                const anio = fecha.getFullYear();
+                return `${dia}/${mes}/${anio}`;
+            }
+        });
+    </script>
 
     <script>
         const searchBtn = document.getElementById('searchButton');
